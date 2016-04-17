@@ -12,8 +12,7 @@ var endpoints = {
     { url: '/test', content: sampleHtml },
     { url: '/another', content: testCallback }
   ],
-  postUrls: [
-
+  postUrls: [{ url: '/', saveLocation: __dirname + '/../data/all-data.json' }
   ]
 };
 
