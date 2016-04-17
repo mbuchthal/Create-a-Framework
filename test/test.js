@@ -5,7 +5,6 @@ const expect = chai.expect;
 chai.use(chaiHttp);
 const request = chai.request;
 const server = require(__dirname + '/../server');
-const endpoints = require(__dirname + '/../endpoints/endpoints')
 
 describe('server', () => {
   after((done) => {
@@ -47,17 +46,38 @@ describe('server', () => {
     });
   });
 
-
   it('should accept JSON posts', (done) => {
     request('localhost:5000')
     .post('/')
     .send('{ "hello": "world" }')
     .end((err, res) => {
       expect(err).to.eql(null);
-      // expect(res).to.have.status(200);
-      // expect(res.text).to.eql('yay');
+      expect(res).to.have.status(200);
+      expect(res.text).to.eql('<h1>post successful</h1>');
       done();
     });
   });
 
+  it('should respond with 404 for anything else', (done) => {
+    request('localhost:5000')
+    .get('/gibberish')
+    .end((err, res) => {
+      expect(res).to.have.status(404);
+      expect(err.toString()).to.eql('Error: Not Found');
+      expect(res.text).to.eql('Not Found');
+      done();
+    });
+  });
+
+  it('should respond with 404 for anything else', (done) => {
+    request('localhost:5000')
+    .post('/gibberish')
+    .send('{"content": "waberjackkey"}')
+    .end((err, res) => {
+      expect(res).to.have.status(404);
+      expect(err.toString()).to.eql('Error: Not Found');
+      expect(res.text).to.eql('Not Found');
+      done();
+    });
+  });
 });
