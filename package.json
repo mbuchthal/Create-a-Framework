@@ -1,5 +1,5 @@
 {
-  "name": "create_a_framework",
+  "name": "simple-syrvup",
   "version": "1.0.0",
   "description": "routing framework",
   "main": "index.js",
