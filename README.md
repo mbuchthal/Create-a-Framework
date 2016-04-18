@@ -18,15 +18,15 @@ var syrvup = require('simple-syrvup');
 
 ##Starting Server
 
-To start the server:
-
+To start the server, first set the port:
+```
+syrvup.port = *enter port value*
+```
 ```
 syrvup.server.listen(syrvup.port, () => {
   process.stdout.write('Server is running at localhost:' + syrvup.port + '\n');
 });
 ```
-Default port will be set to 5000.
-Users can optionally set their port to replace 'syrvup.port'.
 
 ##Setting Up Routes
 
@@ -65,6 +65,6 @@ The endpoint object is in the following format:
 ```
 [
   { url: '/', saveLocation: *file*location* },
-  { url: '/another*location, saveLocation: */../data/example.json* }
+  { url: '/another-location', saveLocation: */../data/example.json* }
 ]
 ```
