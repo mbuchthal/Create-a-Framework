@@ -4,7 +4,7 @@ const chaiHttp = require('chai-http');
 const expect = chai.expect;
 chai.use(chaiHttp);
 const request = chai.request;
-require(__dirname + '/../server');
+require(__dirname + '/../server-example');
 const syrvup = require(__dirname + '/../lib/handle-routes');
 
 

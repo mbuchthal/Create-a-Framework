@@ -65,6 +65,6 @@ The endpoint object is in the following format:
 ```
 [
   { url: '/', saveLocation: _file_location_ },
-  { url: '/another_location, saveLocation: _/../data/all-data.json_ }
+  { url: '/another_location, saveLocation: _/../data/example.json_ }
 ]
 ```
