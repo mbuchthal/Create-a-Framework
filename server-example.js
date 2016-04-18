@@ -1,4 +1,4 @@
-const syrvup = require(__dirname + '/lib/handle-routes');
+const syrvup = require(__dirname + '/index');
 
 var testCallback = function(req, res) {
       res.writeHead(200, { 'Content-Type': 'text/plain' });
@@ -14,7 +14,7 @@ var endpoints = {
     { url: '/test', content: sampleHtml },
     { url: '/another', content: testCallback }
   ],
-  postUrls: [{ url: '/', saveLocation: __dirname + '/data/all-data.json' }
+  postUrls: [{ url: '/', saveLocation: __dirname + '/data/example.json' }
   ]
 };
 
