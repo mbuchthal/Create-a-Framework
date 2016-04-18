@@ -1,6 +1,6 @@
 #Simple-Syrvup Documentation
 
-This small framework allows easier setting for GET and POST endpoints.
+This small framework allows for server creation with easier settings for GET and POST endpoints.
 
 ##Installation
 
@@ -20,12 +20,13 @@ var syrvup = require('simple-syrvup');
 
 To start the server:
 
-Port can be set as 'syrvup.port'.
 ```
 syrvup.server.listen(syrvup.port, () => {
   process.stdout.write('Server is running at localhost:' + syrvup.port + '\n');
 });
 ```
+Default port will be set to 5000.
+Users can optionally set their port to replace 'syrvup.port'.
 
 ##Setting Up Routes
 
@@ -55,7 +56,7 @@ The array of objects are in the form:
 Simple-Syrvup also allows the user to set an array of objects for their POST endpoints.
 The POST endpoints allow the user to save the POST in JSON format at a specified location.
 
-To set POST enpoints, the command is:
+To set POST endpoints, the command is:
 ```
 syrvup.postEndpoints(_array_);
 ```
