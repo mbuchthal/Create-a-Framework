@@ -20,7 +20,7 @@ var syrvup = require('simple-syrvup');
 
 To start the server, first set the port:
 ```
-syrvup.port = *enter port value*
+syrvup.port = <enter port value>
 ```
 ```
 syrvup.server.listen(syrvup.port, () => {
@@ -37,13 +37,14 @@ Simple-Syrvup allows the creation of multiple requests to endpoints through the 
 Simple-Syrvup allows the user to set an array of objects to set the GET endpoints.
 The GET endpoints allow server to return text, an HTML file, or a callback function.
 
-To set GET endpoints, the command is:
+To set GET endpoints, in your server.js file, the command is:
 ```
-syrvup.getEndpoints(<array>);
+syrvup.getEndpoints(getArray);
 ```
 
 The array of objects are in the form:
 ```
+var getArray =
 [
   { url: '/', content: <sample text> },
   { url: '/test', content: <path to HTML file> },
@@ -51,20 +52,48 @@ The array of objects are in the form:
 ]
 ```
 
+Example of text:
+```
+'this is sample text'
+```
+
+Example of path to HTML (this file is your creation)
+```
+__dirname + '/index.html'
+```
+
+Example of a callback function:
+```
+function(req, res) {
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.write('yay');
+  res.end();
+};
+```
+
 ###POST Routes
 
 Simple-Syrvup also allows the user to set an array of objects for their POST endpoints.
 The POST endpoints allow the user to save the POST in JSON format at a specified location.
+The file must contain a counter object.
+
+First
 
 To set POST endpoints, the command is:
 ```
-syrvup.postEndpoints(<array>);
+syrvup.postEndpoints(postArray);
 ```
 
 The endpoint object is in the following format:
 ```
+var postArray =
 [
   { url: '/', saveLocation: <file location> },
   { url: '/another-location', saveLocation: </../data/example.json> }
 ]
+```
+
+The sample JSON file would containt this to begin:
+```
+{"count":"0"}
 ```
