@@ -39,15 +39,15 @@ The GET endpoints allow server to return text, an HTML file, or a callback funct
 
 To set GET endpoints, the command is:
 ```
-syrvup.getEndpoints(_array_);
+syrvup.getEndpoints(*array*);
 ```
 
 The array of objects are in the form:
 ```
 [
-  { url: '/', content: _'sample text'_ },
-  { url: '/test', content: _path to HTML file_ },
-  { url: '/another', content: _Callback function_ }
+  { url: '/', content: *'sample text'* },
+  { url: '/test', content: *path to HTML file* },
+  { url: '/another', content: *Callback function* }
 ]
 ```
 
@@ -58,13 +58,13 @@ The POST endpoints allow the user to save the POST in JSON format at a specified
 
 To set POST endpoints, the command is:
 ```
-syrvup.postEndpoints(_array_);
+syrvup.postEndpoints(*array*);
 ```
 
 The endpoint object is in the following format:
 ```
 [
-  { url: '/', saveLocation: _file_location_ },
-  { url: '/another_location, saveLocation: _/../data/example.json_ }
+  { url: '/', saveLocation: *file*location* },
+  { url: '/another*location, saveLocation: */../data/example.json* }
 ]
 ```
