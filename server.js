@@ -1,9 +1,4 @@
-const http = require('http');
-const router = require(__dirname + '/lib/handle-routes');
-
-const port = process.env.PORT || 5000;
-
-const syrvup = module.exports = exports = http.createServer(router.route());
+const syrvup = require(__dirname + '/lib/handle-routes');
 
 var testCallback = function(req, res) {
       res.writeHead(200, { 'Content-Type': 'text/plain' });
@@ -23,8 +18,9 @@ var endpoints = {
   ]
 };
 
-router.getEndpoints(endpoints.getUrls);
-router.postEndpoints(endpoints.postUrls);
-syrvup.listen(port, () => {
-  process.stdout.write('Server is running at localhost:' + port + '\n');
+syrvup.port = process.env.PORT || 5000;
+syrvup.getEndpoints(endpoints.getUrls);
+syrvup.postEndpoints(endpoints.postUrls);
+syrvup.server.listen(syrvup.port, () => {
+  process.stdout.write('Server is running at localhost:' + syrvup.port + '\n');
 });
