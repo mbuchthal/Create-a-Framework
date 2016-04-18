@@ -75,9 +75,8 @@ function(req, res) {
 
 Simple-Syrvup also allows the user to set an array of objects for their POST endpoints.
 The POST endpoints allow the user to save the POST in JSON format at a specified location.
-The file must contain a counter object.
 
-First
+If no file exists at the saveLocation, a file titled "postData.json" will be created. The directory must be already created by the user.
 
 To set POST endpoints, the command is:
 ```
@@ -88,12 +87,12 @@ The endpoint object is in the following format:
 ```
 var postArray =
 [
-  { url: '/', saveLocation: <file location> },
-  { url: '/another-location', saveLocation: </../data/example.json> }
+  { url: '/', saveLocation: <directory> },
+  { url: '/another-location', saveLocation: </../data/> }
 ]
 ```
 
-The sample JSON file would containt this to begin:
+The sample JSON file would contain this to begin:
 ```
 {"count":"0"}
 ```
