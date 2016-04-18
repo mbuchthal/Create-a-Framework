@@ -1,6 +1,6 @@
 {
   "name": "simple-syrvup",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "routing framework",
   "main": "index.js",
   "scripts": {
