@@ -15,12 +15,16 @@ var endpoints = {
     { url: '/another', content: testCallback }
   ],
   postUrls: [{ url: '/', saveLocation: __dirname + '/data/' }
-  ]
+  ],
+  putUrls: [{ url: '/', saveLocation: __dirname + '/data/' }],
+  deleteUrls: [{ url: '/', saveLocation: __dirname + '/data/' }]
 };
 
 syrvup.port = process.env.PORT || 5000;
 syrvup.getEndpoints(endpoints.getUrls);
 syrvup.postEndpoints(endpoints.postUrls);
+syrvup.putEndpoints(endpoints.putUrls);
+syrvup.deleteEndpoints(endpoints.deleteUrls);
 syrvup.server.listen(syrvup.port, () => {
   process.stdout.write('Server is running at localhost:' + syrvup.port + '\n');
 });
