@@ -49,7 +49,7 @@ var getArray =
   { url: '/', content: <sample text> },
   { url: '/test', content: <path to HTML file> },
   { url: '/another', content: <Callback function> }
-]
+];
 ```
 
 Example of text:
@@ -68,7 +68,7 @@ function(req, res) {
   res.writeHead(200, { 'Content-Type': 'text/plain' });
   res.write('yay');
   res.end();
-};
+}
 ```
 
 ###POST Routes
@@ -89,10 +89,73 @@ var postArray =
 [
   { url: '/', saveLocation: <directory> },
   { url: '/another-location', saveLocation: </../data/> }
-]
+];
+```
+
+Example format for POST request:
+```
+'{"key": "data"}'
 ```
 
 The sample JSON file would contain this to begin:
 ```
 {"count":"0"}
+```
+
+###PUT Routes
+
+Simple-Syrvup allows PUT requests to be made to change your data made by POST requests.  The PUT method data must be sent in JSON format.
+
+```
+syrvup.putEndpoints(putArray);
+```
+
+```
+var putArray =
+[
+  { url: '/', saveLocation: <directory> },
+  { url: '/another-location', saveLocation: </../data/> }
+];
+```
+
+Example format for PUT request:
+```
+'{"#" : {"key": "data"}}'
+```
+
+###DELETE Routes
+
+Simple-Syrvup allows DELETE requests to be made to delete your data made by the POST requests.
+
+```
+syrvup.deleteEndpoints(deleteArray);
+```
+
+```
+var deleteArray =
+[
+  { url: '/', saveLocation: <directory> },
+  { url: '/another-location', saveLocation: </../data/> }
+];
+```
+
+Example format for PUT request:
+```
+'{"#" : {"key": "data"}}'
+```
+
+##PATCH Routes
+
+Simple-Syrvup does not support array formats for PATCH requests.  Custom patch requests can be made with path and callbacks.
+```
+syrvup.patch(path, callback)
+```
+
+Example of customer PATCH request:
+```
+syrvup.patch('/path', (req, res) => {
+  res.writeHead(200, { 'Content-Type': 'json/application' });
+  res.write('patch made');
+  res.end();
+});
 ```
