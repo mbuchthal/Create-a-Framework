@@ -139,23 +139,34 @@ var deleteArray =
 ];
 ```
 
-Example format for PUT request:
+Example format for DELETE request:
 ```
-'{"#" : {"key": "data"}}'
+'{"#" : "delete"}'
 ```
 
 ##PATCH Routes
 
-Simple-Syrvup does not support array formats for PATCH requests.  Custom patch requests can be made with path and callbacks.
+Simple-Syrvup also supports array formats for PATCH requests; however, custom callbacks must be provided by users.
+
+```
+syrvup.patchEndpoints(patchArray);
+```
+
 ```
 syrvup.patch(path, callback)
 ```
-
-Example of customer PATCH request:
 ```
-syrvup.patch('/path', (req, res) => {
+var patchArray =
+[
+  { url: '/another', content: <Callback function> }
+];
+```
+
+Example of a PATCH callback function:
+```
+(req, res) => {
   res.writeHead(200, { 'Content-Type': 'json/application' });
   res.write('patch made');
   res.end();
-});
+};
 ```
