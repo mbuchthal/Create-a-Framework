@@ -11,7 +11,16 @@ npm init
 npm install simple-syrvup
 ```
 
-To use Simple-Syrvup:
+##To Test
+
+From: ./node-modules/simple-syrvup
+```
+npm install
+
+npm test
+```
+
+##To use Simple-Syrvup:
 ```
 var syrvup = require('simple-syrvup');
 ```
@@ -144,7 +153,7 @@ Example format for DELETE request:
 '{"#" : "delete"}'
 ```
 
-##PATCH Routes
+###PATCH Routes
 
 Simple-Syrvup also supports array formats for PATCH requests; however, custom callbacks must be provided by users.
 
