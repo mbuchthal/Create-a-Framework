@@ -7,7 +7,7 @@ var testFiles = ['./test/**/*.js'];
 
 gulp.task('lint', () => {
   return gulp.src(files, testFiles)
-    .pipe(eslint({}))
+    .pipe(eslint())
     .pipe(eslint.format());
 });
 
