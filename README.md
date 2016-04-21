@@ -11,7 +11,16 @@ npm init
 npm install simple-syrvup
 ```
 
-To use Simple-Syrvup:
+##To Test
+
+From: ./node-modules/simple-syrvup
+```
+npm install
+
+npm test
+```
+
+##To use Simple-Syrvup:
 ```
 var syrvup = require('simple-syrvup');
 ```
@@ -49,7 +58,7 @@ var getArray =
   { url: '/', content: <sample text> },
   { url: '/test', content: <path to HTML file> },
   { url: '/another', content: <Callback function> }
-]
+];
 ```
 
 Example of text:
@@ -68,7 +77,7 @@ function(req, res) {
   res.writeHead(200, { 'Content-Type': 'text/plain' });
   res.write('yay');
   res.end();
-};
+}
 ```
 
 ###POST Routes
@@ -89,10 +98,84 @@ var postArray =
 [
   { url: '/', saveLocation: <directory> },
   { url: '/another-location', saveLocation: </../data/> }
-]
+];
+```
+
+Example format for POST request:
+```
+'{"key": "data"}'
 ```
 
 The sample JSON file would contain this to begin:
 ```
 {"count":"0"}
+```
+
+###PUT Routes
+
+Simple-Syrvup allows PUT requests to be made to change your data made by POST requests.  The PUT method data must be sent in JSON format.
+
+```
+syrvup.putEndpoints(putArray);
+```
+
+```
+var putArray =
+[
+  { url: '/', saveLocation: <directory> },
+  { url: '/another-location', saveLocation: </../data/> }
+];
+```
+
+Example format for PUT request:
+```
+'{"#" : {"key": "data"}}'
+```
+
+###DELETE Routes
+
+Simple-Syrvup allows DELETE requests to be made to delete your data made by the POST requests.
+
+```
+syrvup.deleteEndpoints(deleteArray);
+```
+
+```
+var deleteArray =
+[
+  { url: '/', saveLocation: <directory> },
+  { url: '/another-location', saveLocation: </../data/> }
+];
+```
+
+Example format for DELETE request:
+```
+'{"#" : "delete"}'
+```
+
+###PATCH Routes
+
+Simple-Syrvup also supports array formats for PATCH requests; however, custom callbacks must be provided by users.
+
+```
+syrvup.patchEndpoints(patchArray);
+```
+
+```
+syrvup.patch(path, callback)
+```
+```
+var patchArray =
+[
+  { url: '/another', content: <Callback function> }
+];
+```
+
+Example of a PATCH callback function:
+```
+(req, res) => {
+  res.writeHead(200, { 'Content-Type': 'json/application' });
+  res.write('patch made');
+  res.end();
+};
 ```

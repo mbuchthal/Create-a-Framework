@@ -1,10 +1,11 @@
 {
   "name": "simple-syrvup",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "routing framework",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "create-test-dir": "node test/test_directory.js",
+    "test": "npm run create-test-dir && mocha"
   },
   "repository": {
     "type": "git",
