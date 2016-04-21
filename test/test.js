@@ -2,20 +2,19 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const expect = chai.expect;
 chai.use(chaiHttp);
+require(__dirname + '/test_directory');
 const request = chai.request;
 const syrvup = require(__dirname + '/../lib/handle-routes');
 const fs = require('fs');
 process.env.PORT = 5000;
-require(__dirname + '/../server-example');
 
 describe('put request', () => {
   before((done) => {
-    fs.writeFileSync(__dirname + '/../data/postData.json', '{"1":{"hello":"world"},"count":"1"}');
-    console.log('file written');
-    syrvup.server.listen(syrvup.port, () => {
-      process.stdout.write('Server is running at localhost:' + syrvup.port + '\n');
-      done();
-    });
+    var pathName = __dirname + '/../data/postData.json';
+    var writeFile = fs.writeFileSync(pathName, '{"1":{"hello":"world"},"count":"1"}');
+    setTimeout(writeFile, 1800);
+    require(__dirname + '/../server-example');
+    done();
     });
   after((done) => {
       syrvup.server.close(() => {
