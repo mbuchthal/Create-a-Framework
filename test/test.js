@@ -10,33 +10,36 @@ process.env.PORT = 5000;
 
 describe('put request', () => {
   before((done) => {
-    var pathName = __dirname + '/../data/postData.json';
-    var writeFile = fs.writeFileSync(pathName, '{"1":{"hello":"world"},"count":"1"}');
-    setTimeout(writeFile, 1800);
     require(__dirname + '/../server-example');
-    done();
-    });
+    var pathName = __dirname + '/../data/postData.json';
+    fs.writeFileSync(pathName, '{"1":{"hello":"world"},"count":"1"}');
+    setTimeout(() => {
+      done();
+    }, 500);
+  });
+
   after((done) => {
-      syrvup.server.close(() => {
+    syrvup.server.close(() => {
+      done();
+    });
+  });
+
+  it('should accept JSON put requests', (done) => {
+    request('localhost:5000')
+    .put('/')
+    .send('{"1":{"changed":"put request successful"}}')
+    .end((err, res) => {
+      fs.readFile(__dirname + '/../data/postData.json', (err, data) => {
+        if (err) throw err;
+        var newParsedData = JSON.parse(data);
+        expect(err).to.eql(null);
+        expect(res).to.have.status(200);
+        expect(res.text).to.eql('<h2>Updated!</h2>');
+        expect(newParsedData['1']).to.eql({ changed: 'put request successful' });
         done();
       });
     });
-    it('should accept JSON put requests', (done) => {
-        request('localhost:5000')
-        .put('/')
-        .send('{"1":{"changed":"put request successful"}}')
-        .end((err, res) => {
-          fs.readFile(__dirname + '/../data/postData.json', (err, data) => {
-            if (err) throw err;
-            var newParsedData = JSON.parse(data);
-            expect(err).to.eql(null);
-            expect(res).to.have.status(200);
-            expect(res.text).to.eql('<h2>Updated!</h2>');
-            expect(newParsedData['1']).to.eql({ changed: 'put request successful' });
-            done();
-          });
-        });
-      });
+  });
 });
 
 describe('delete request', () => {
@@ -46,28 +49,30 @@ describe('delete request', () => {
       process.stdout.write('Server is running at localhost:' + syrvup.port + '\n');
       done();
     });
-    });
+  });
+
   after((done) => {
-      syrvup.server.close(() => {
+    syrvup.server.close(() => {
+      done();
+    });
+  });
+
+  it('should accept JSON delete requests', (done) => {
+    request('localhost:5000')
+    .delete('/')
+    .send('{"1":"delete"}')
+    .end((err, res) => {
+      fs.readFile(__dirname + '/../data/postData.json', (err, data) => {
+        if (err) throw err;
+        var newParsedData = JSON.parse(data);
+        expect(err).to.eql(null);
+        expect(res).to.have.status(200);
+        expect(res.text).to.eql('<h2>Shredded that shit</h2>');
+        expect(newParsedData['1']).to.eql(undefined);
         done();
       });
     });
-    it('should accept JSON put requests', (done) => {
-        request('localhost:5000')
-        .delete('/')
-        .send('{"1":"delete"}')
-        .end((err, res) => {
-          fs.readFile(__dirname + '/../data/postData.json', (err, data) => {
-            if (err) throw err;
-            var newParsedData = JSON.parse(data);
-            expect(err).to.eql(null);
-            expect(res).to.have.status(200);
-            expect(res.text).to.eql('<h2>Shredded that shit</h2>');
-            expect(newParsedData['1']).to.eql(undefined);
-            done();
-          });
-        });
-      });
+  });
 });
 
 describe('server', () => {
@@ -76,12 +81,14 @@ describe('server', () => {
       process.stdout.write('Server is running at localhost:' + syrvup.port + '\n');
       done();
     });
-    });
+  });
+
   after((done) => {
-      syrvup.server.close(() => {
-        done();
-      });
+    syrvup.server.close(() => {
+      done();
     });
+  });
+
   it('should accept GET requests with string content', (done) => {
     request('localhost:5000')
     .get('/')
@@ -114,6 +121,7 @@ describe('server', () => {
       done();
     });
   });
+
   it('should accept JSON posts', (done) => {
     request('localhost:5000')
     .post('/')
@@ -126,6 +134,7 @@ describe('server', () => {
       done();
     });
   });
+
   it('bad routes should respond with 404', (done) => {
     request('localhost:5000')
     .get('/gibberish')
